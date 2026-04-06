@@ -1,15 +1,17 @@
 @use "../helper/variable.scss" as variable;
+@import "../responsive";
 
 .heritage {
     background-color: rgb(245, 245, 245);
-   padding:50px 0px 50px 0px;
-   margin-bottom: 40px;
+    padding: 30px 0px 30px 0px;
+    margin-bottom: 20px;
+
     h2 {
         font-family: 'Times New Roman', Times, serif;
         font-size: 45px;
         font-weight: 900;
         text-align: center;
-       margin-bottom:40px;
+        margin-bottom: 40px;
     }
 
     .content_area {
@@ -23,24 +25,25 @@
             }
 
             button {
-                background-color:rgb(241, 186, 34) ;
+                background-color: rgb(241, 186, 34);
                 border-radius: 10px;
-                padding:10px 20px 10px 20px;
-                border:none;
-               transition: all 0.3s ease;
+                padding: 10px 20px 10px 20px;
+                border: none;
+                transition: all 0.3s ease;
             }
-        
-        button:hover{
-            transform:translate(-10px) scale(1.03);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.3),0 0 15px rgba(255, 105, 180, 0.5); ;
-        }
+
+            button:hover {
+                transform: translate(-10px) scale(1.03);
+                box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 105, 180, 0.5);
+                ;
+            }
         }
 
         .right_area {
             img {
-                height:400px;
-                width:600px;
-                border-radius:10px;
+                height: 400px;
+                width: 600px;
+                border-radius: 10px;
             }
         }
     }

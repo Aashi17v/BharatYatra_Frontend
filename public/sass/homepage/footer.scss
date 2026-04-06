@@ -1,34 +1,103 @@
 @use "../helper/variable.scss" as variable;
+@import "../responsive";
 
 .head_container {
-    background-color: variable.$primary_color;
-    padding:10px 0px 10px 0px;
-      background: linear-gradient( to left, #6b1f3a, #8b4d06);
+  background: linear-gradient(90deg, #5a0f2e, #8b1e3f);
+  padding: 18px 0;
+  border-top: 2px solid rgba(255, 255, 255, 0.15);
 
-    .inner_container {
-           display: flex;
-            justify-content:center;
-            align-items: center;
-          margin-top: 10px;
-          color:white;
-        .left_area {
-            ul {
-                li {
-                    display: inline-block;
-                    margin-left:60px;
-                }
-            }
+  .inner_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .left_area {
+      ul {
+        display: flex;
+        gap: 30px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li a {
+          text-decoration: none;
+          color: #fff;
+          font-size: 14px;
+          position: relative;
+          transition: 0.3s;
+
+          &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background:  #d4af37;
+            transition: 0.3s;
+          }
+
+          &:hover::after {
+            width: 100%;
+          }
+
+          &:hover {
+            opacity: 0.8;
+          }
         }
-        .right_area {
-            ul {
-                li {
-                    display: inline-block;
-                    margin-left: 60px;
-                    .icon {
-                        height: 25px;
-                    }
-                }
-            }
-        }
+      }
     }
+
+    .right_area {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+
+      ul {
+        display: flex;
+        gap: 25px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        a {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          position: relative;
+
+          svg {
+            color: #ffffff; 
+            font-size: 18px;
+            transition: all 0.3s ease;
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background:  #d4af37;
+            transition: 0.3s;
+          }
+
+          &:hover svg {
+            color:#ffffff ; 
+            transform: translateY(-3px);
+          }
+
+          &:hover::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }
+

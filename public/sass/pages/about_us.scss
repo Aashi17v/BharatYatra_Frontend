@@ -1,65 +1,76 @@
 @use "../helper/variable.scss" as variable;
+@import "../responsive";
 
 .outer_area {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 
     .first_area {
         text-align: center;
-        padding: 60px 0px 60px 0px;
-        background-color: rgb(245, 245, 245);
-        margin-bottom: 40px;
+        padding: 50px 0; 
+        background-color: #f8f9fa;
+        margin-bottom: 30px;
 
         .content_area {
+            max-width: 700px;
+            margin: 0 auto;
+
             h2 {
-                font-family: 'Times New Roman', Times, serif;
-                font-size: 50px;
+                font-size: 36px;
                 font-weight: 700;
-                margin-bottom: 40px;
+                color: variable.$primary_color;
+                margin-bottom: 15px;
             }
 
             p {
-                font-family: sans-serif;
-                font-size: 20px;
-                font-weight: 400;
-                margin-bottom: 20px;
+                font-size: 15px;
+                line-height: 1.6;
+                color: #555;
+                margin-bottom: 10px;
             }
         }
     }
 
     .second_area {
+        padding-bottom: 40px;
+
         .section_area {
+
             h2 {
-                font-family: 'Times New Roman', Times, serif;
-                font-size: 45px;
-                font-weight: 900;
+                font-size: 32px;
+                margin-bottom: 25px;
                 text-align: center;
-                margin-bottom: 40px;
             }
 
-            .section {
-                margin-bottom: 30px;
+            .story_section {
+                margin-bottom: 50px;
+
+                .row {
+                    align-items: center;
+                }
 
                 .image_area {
                     img {
-                        height: 300px;
-                        width: 600px;
-                        border-radius: 10px;
+                        width: 100%;
+                        height: 240px; 
+                        object-fit: cover;
+                        border-radius: 12px;
                     }
                 }
 
                 .description {
+                    padding: 10px 20px;
+
                     h3 {
-                        font-family: sans-serif;
                         font-size: 26px;
                         font-weight: 700;
-                        color: rgb(41, 40, 40);
+                        margin-bottom: 10px;
+                        color: variable.$primary_color;
                     }
 
                     p {
-                        font-family: sans-serif;
-                        font-size: 20px;
-                        font-weight: 500;
-                        color: rgb(41, 40, 40);
+                        font-size: 17px;
+                        line-height: 1.7;
+                        color: #444;
                     }
                 }
             }
@@ -67,50 +78,43 @@
     }
 
     .third_area {
+        padding: 40px 0 50px 0;
+
         .head_area {
-            margin-bottom: 40px;
-            padding: 45px 0px 50px 0px;
-
             h2 {
-                font-family: 'Times New Roman', Times, serif;
-                font-size: 45px;
-                font-weight: 900;
-                text-align: center;
-                margin-bottom: 40px;
+                font-size: 32px;
+                margin-bottom: 25px;
             }
+            .custom_card {
+                text-align: center;
+                padding: 20px 15px; 
+                border-radius: 10px;
+                transition: 0.3s;
 
-            .content_area {
-                .card {
-                    text-align: center;
-                    padding: 20px;
-                    background-color: rgb(245, 245, 245);
-                    border: none;
-                    margin-bottom: 20px;
+                &:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+                }
 
-                    .icon_area {
-
-                        .icons {
-                            color: variable.$primary_color;
-                            height: 50px;
-                            width: 50px;
-                            margin-bottom: 10px;
-                        }
-                    }
-
-                    .heading {
-                        font-family: 'Times New Roman', Times, serif;
-                        font-size: 24px;
-                        font-weight: 900;
+                .icon_area {
+                    .icons {
+                        height: 35px;
+                        width: 35px;
+                        color: variable.$primary_color;
                         margin-bottom: 10px;
                     }
+                }
 
-                    .paragraph {
-                        font-family: sans-serif;
-                        font-size: 14px;
-                        font-weight: 500;
-                        color: rgb(51, 51, 51);
-                        margin-bottom: 10px;
-                    }
+                .heading {
+                    font-size: 18px;
+                    font-weight: 600;
+                    margin-bottom: 6px;
+                }
+
+                .paragraph {
+                    font-size: 13px;
+                    line-height: 1.5;
+                    color: #666;
                 }
             }
         }

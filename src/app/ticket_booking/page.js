@@ -1,12 +1,18 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { useSearchParams } from "next/navigation";
+import destinations from "../data/destinations";
+import { handlePayment } from "@/utils/payment";
 import "../../../public/sass/pages/ticket_booking.scss";
 
 export default function BookingForm() {
+  const params = useSearchParams();
+
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
-  const [infants, setInfants] = useState(0);
+
   const [formData, setFormData] = useState({
     destination: "",
     fromDate: "",
@@ -18,200 +24,178 @@ export default function BookingForm() {
     payment: "",
   });
 
+  useEffect(() => {
+    const selectedDestination = params.get("destination");
+    if (selectedDestination) {
+      setFormData((prev) => ({
+        ...prev,
+        destination: selectedDestination,
+      }));
+    }
+  }, [params]);
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value || "",
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { destination, fullName, email, phone } = formData;
+    const { destination, fullName, email, phone, payment } = formData;
+
     if (!destination || !fullName || !email || !phone) {
-      alert("Please fill out all required fields!");
+      alert("Please fill all fields!");
       return;
     }
 
-    alert(`Thank you, ${fullName}! Your booking for ${destination} is confirmed.`);
-    setFormData({
-      destination: "",
-      fromDate: "",
-      toDate: "",
-      fullName: "",
-      email: "",
-      phone: "",
-      requests: "",
-      payment: "",
+    if (!payment) {
+      alert("Select payment method!");
+      return;
+    }
+
+    const selectedPlace = destinations.find(
+      (item) => item.name === destination
+    );
+
+    if (!selectedPlace) {
+      alert("Invalid destination selected ❌");
+      return;
+    }
+
+    const price = Number(selectedPlace.price);
+    const totalPeople = Number(adults) + Number(children);
+    const totalAmount = price * totalPeople;
+
+    console.log("Destination:", destination);
+    console.log("Price:", price);
+    console.log("Total People:", totalPeople);
+    console.log("Total Amount:", totalAmount);
+
+    if (!totalAmount || isNaN(totalAmount)) {
+      alert("Invalid amount ❌");
+      return;
+    }
+
+    handlePayment({
+      amount: totalAmount,
+      name: fullName,
+      email,
+      destination,
+      persons: totalPeople, // ✅ THIS LINE FIXES EVERYTHING
     });
-    setAdults(2);
-    setChildren(0);
-    setInfants(0);
   };
 
+  // ✅ Live calculation
+  const selectedPlace = destinations.find(
+    (item) => item.name === formData.destination
+  );
+
+  // ✅ SAFE FIX
+  const price =
+    selectedPlace && !isNaN(selectedPlace.price)
+      ? Number(selectedPlace.price)
+      : 0;
+
+  const totalPeople = Number(adults) + Number(children);
+  const estimatedTotal = price * totalPeople;
+
   return (
-    <div className="booking-container">
+    <div className="payment-container">
       <Container>
         <Row>
-          <Col xxl={12} xl={12} lg={12} md={12} sm={12} xs={12}>
-            <h1>Book Your Incredible India Tour</h1>
-            <p>
-              Embark on a journey of a lifetime. Fill out the form below to
-              secure your tickets!
-            </p>
+          <Col>
+            <h1>Book Your Tour</h1>
 
-            <Form id="bookingForm" onSubmit={handleSubmit}>
-              <Form.Group controlId="destination">
-                <Form.Label>Select Your Destination</Form.Label>
-                <Form.Select
-                  value={formData.destination}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Choose Destination</option>
-                  <option>Taj Mahal, Agra</option>
-                  <option>Jaipur, Rajasthan</option>
-                  <option>Varanasi, Uttar Pradesh</option>
-                  <option>Kerala Backwaters</option>
-                  <option>Goa Beaches</option>
-                </Form.Select>
-              </Form.Group>
+            <Form onSubmit={handleSubmit}>
 
+              {/* DESTINATION */}
+              <Form.Select
+                name="destination"
+                value={formData.destination}
+                onChange={handleChange}
+              >
+                <option value="">Choose Destination</option>
+                {destinations.map((item, i) => (
+                  <option key={i} value={item.name}>
+                    {item.name}
+                  </option>
+                ))}
+              </Form.Select>
+
+              {/* DATES */}
               <div className="travel-dates">
+                <Form.Control type="date" name="fromDate" onChange={handleChange} />
+                <Form.Control type="date" name="toDate" onChange={handleChange} />
+              </div>
+
+              {/* 👨‍👩‍👧 TRAVELLERS */}
+              <h3>Travellers</h3>
+
+              <div className="travellers">
                 <div>
-                  <Form.Label>From</Form.Label>
+                  <label>Adults</label>
                   <Form.Control
-                    type="date"
-                    id="fromDate"
-                    value={formData.fromDate}
-                    onChange={handleChange}
-                    required
+                    type="number"
+                    min="1"
+                    value={adults}
+                    onChange={(e) => setAdults(Number(e.target.value))}
                   />
                 </div>
+
                 <div>
-                  <Form.Label>To</Form.Label>
+                  <label>Children</label>
                   <Form.Control
-                    type="date"
-                    id="toDate"
-                    value={formData.toDate}
-                    onChange={handleChange}
-                    required
+                    type="number"
+                    min="0"
+                    value={children}
+                    onChange={(e) => setChildren(Number(e.target.value))}
                   />
                 </div>
               </div>
 
-              <h3>Number of Travelers</h3>
-              <div className="slider-group">
-                <Form.Label>
-                  Adults <span>{adults}</span>
-                </Form.Label>
-                <Form.Range
-                  min={1}
-                  max={10}
-                  value={adults}
-                  onChange={(e) => setAdults(Number(e.target.value))}
-                />
+              <p className="total-people">
+                Total Travellers: <strong>{totalPeople}</strong>
+              </p>
 
-                <Form.Label>
-                  Children <span>{children}</span>
-                </Form.Label>
-                <Form.Range
-                  min={0}
-                  max={10}
-                  value={children}
-                  onChange={(e) => setChildren(Number(e.target.value))}
-                />
+              {/* 💰 PRICE PREVIEW */}
+              <p className="price-preview">
+                Estimated Total: <strong>₹{estimatedTotal}</strong>
+              </p>
 
-                <Form.Label>
-                  Infants <span>{infants}</span>
-                </Form.Label>
-                <Form.Range
-                  min={0}
-                  max={5}
-                  value={infants}
-                  onChange={(e) => setInfants(Number(e.target.value))}
-                />
-              </div>
-
-              <h3>Contact Details</h3>
+              {/* CONTACT */}
+              <h3>Contact</h3>
               <div className="contact-details">
-                <Form.Control
-                  type="text"
-                  id="fullName"
-                  placeholder="Full Name"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  required
-                />
-                <Form.Control
-                  type="email"
-                  id="email"
-                  placeholder="Email Address"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-                <Form.Control
-                  type="tel"
-                  id="phone"
-                  placeholder="Phone Number"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
+                <Form.Control name="fullName" placeholder="Name" onChange={handleChange} />
+                <Form.Control name="email" placeholder="Email" onChange={handleChange} />
+                <Form.Control name="phone" placeholder="Phone" onChange={handleChange} />
               </div>
 
-              <Form.Group controlId="requests">
-                <Form.Label>Special Requests</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  placeholder="Any dietary restrictions, accessibility needs, or other requests?"
-                  value={formData.requests}
-                  onChange={handleChange}
-                />
-              </Form.Group>
+              <Form.Control
+                as="textarea"
+                name="requests"
+                value={formData.requests || ""}
+                onChange={handleChange}
+              />
 
-              <h3>Payment Method</h3>
+              {/* PAYMENT */}
+              <h3>Payment</h3>
               <div className="payment-options">
-                <Form.Check
-                  inline
-                  label="Credit/Debit Card"
-                  name="payment"
-                  type="radio"
-                  id="card"
-                  value="card"
-                  checked={formData.payment === "card"}
-                  onChange={(e) =>
-                    setFormData({ ...formData, payment: e.target.value })
-                  }
-                />
-                <Form.Check
-                  inline
-                  label="UPI/Net Banking"
-                  name="payment"
-                  type="radio"
-                  id="upi"
-                  value="upi"
-                  checked={formData.payment === "upi"}
-                  onChange={(e) =>
-                    setFormData({ ...formData, payment: e.target.value })
-                  }
-                />
-                <Form.Check
-                  inline
-                  label="PayPal"
-                  name="payment"
-                  type="radio"
-                  id="paypal"
-                  value="paypal"
-                  checked={formData.payment === "paypal"}
-                  onChange={(e) =>
-                    setFormData({ ...formData, payment: e.target.value })
-                  }
-                />
+                <label className={`payment-card ${formData.payment === "card" ? "active" : ""}`}>
+                  <input type="radio" name="payment" value="card" onChange={handleChange} />
+                  Card
+                </label>
+
+                <label className={`payment-card ${formData.payment === "upi" ? "active" : ""}`}>
+                  <input type="radio" name="payment" value="upi" onChange={handleChange} />
+                  UPI
+                </label>
               </div>
 
-              <Button type="submit" className="book-btn">
-                Book Now
-              </Button>
+              <Button type="submit">💳 Pay & Book</Button>
             </Form>
           </Col>
         </Row>

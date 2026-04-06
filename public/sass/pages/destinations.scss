@@ -1,98 +1,161 @@
 @use "../helper/variable.scss" as variable;
+@import "../responsive";
 
 .main_area {
+    min-height: 87vh;
+
     .head_area {
-        background-color: #f1aed231;
-        padding: 10px 0px 10px 0px;
+        background: linear-gradient(135deg, #f8e1ec, #f3d1dc);
+        padding: 20px 0;
         margin-bottom: 30px;
 
         .content_area {
-            h2 {
-                font-family: 'Times New Roman', Times, serif;
-                font-size: 45px;
-                font-weight: 900;
-                text-align: center;
-            }
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
 
-            p {
-                font-family: sans-serif;
-                font-size: 20px;
-                font-weight: 400;
-                color: rgb(36, 33, 33);
+            .search_filter_area {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+
+                input {
+                    width: 100%;
+                    max-width: 700px;
+                    padding: 12px 20px;
+                    border-radius: 30px;
+                    border: none;
+                    font-size: 14px;
+                    background: #fff;
+                    outline: none;
+                    transition: 0.3s;
+
+                    &:focus {
+                        box-shadow: 0 3px 8px rgba(143, 2, 148, 0.2);
+                    }
+                }
+
+                .filter_buttons {
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    gap: 8px;
+
+                    button {
+                        padding: 6px 16px;
+                        border-radius: 20px;
+                        border: 1px solid #ccc;
+                        background: #fff;
+                        font-size: 12px;
+                        font-weight: 500;
+                        cursor: pointer;
+                        transition: 0.3s;
+
+                        &:hover,
+                        &.active {
+                            background: variable.$primary_color;
+                            color: #fff;
+                            border-color: variable.$primary_color;
+                        }
+                    }
+                }
             }
         }
     }
 
     .card_area {
+
         .card {
-            margin-bottom: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            border-radius: 10px;
-            transition: all 0.3s ease;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            overflow: hidden;
+            background: #fff;
 
             .image_area {
+                overflow: hidden;
+
                 img {
                     height: 250px;
                     width: 100%;
-                    border-radius: 10px 10px 0px 0px;
-                    margin-bottom: 10px;
+                    object-fit: cover;
+                    transition: transform 0.5s ease;
                 }
             }
 
             .content_area {
-                margin-left: 10px;
+                padding: 20px;
 
                 h2 {
-                    font-family: 'Times New Roman', Times, serif;
-                    font-size: 24px;
-                    font-weight: 900;
+                    font-size: 22px;
+                    font-weight: 700;
                     margin-bottom: 10px;
+                    color: #333;
                 }
 
                 .tags {
-                     margin-bottom: 10px;
+                    margin-bottom: 15px;
+                    display: flex;
+                    gap: 8px;
+                    flex-wrap: wrap;
+
                     .tag {
-                        background-color: rgba(236, 181, 0, 0.377);
-                        margin-right: 10px;
-                        border-radius: 10px;
-                        padding:5px;
-                        font-weight: 550;
-                       
+                        background: #fef9c3;
+                        color: #854d0e;
+                        border-radius: 6px;
+                        padding: 4px 10px;
+                        font-size: 12px;
+                        font-weight: 600;
                     }
                 }
 
-                p {
-                    font-family: sans-serif;
+                .button_area button {
+                    background: variable.$primary_color;
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    padding: 12px;
+                    width: 100%;
+                    font-weight: 600;
                     font-size: 14px;
-                    font-weight: 500;
-                    color: rgb(51, 51, 51);
-                    margin-bottom: 10px;
-                }
+                    cursor: pointer;
+                    transition: 0.3s;
 
-                .button_area {
-                    text-align: center;
-                   
-                    button {
-                        background-color: variable.$primary_color;
-                        color: white;
-                        border:none;
-                        border-radius: 15px;
-                        font-family: sans-serif;
-                        font-size: 15px;
-                        font-weight: 700px;
-                        margin-bottom: 10px;
-                         padding: 10px 150px 10px 150px;
-
+                    &:hover {
+                        filter: brightness(1.15);
                     }
                 }
+            }
 
+            &:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+
+                .image_area img {
+                    transform: scale(1.08);
+                }
             }
         }
 
-        .card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(85, 18, 51, 0.3);
+        .view_more_btn {
+            margin: 20px 0px 20px 0px;
+            padding: 10px 25px;
+            border-radius: 25px;
+            border: none;
+            background: variable.$primary_color;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+                filter: brightness(1.1);
+            }
         }
     }
 }

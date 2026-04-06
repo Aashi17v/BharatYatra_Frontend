@@ -1,87 +1,75 @@
 @use "../helper/variable.scss" as variable;
+@import "../responsive";
 
-.contact {
-  padding: 80px 0;
-  background: #f8f8f8;
-  margin-bottom: 40px;
+.contact_page {
+  background: #f4f6f9;
+  min-height: 87vh;
+  padding: 50px 0;
 
-  .content_area {
-    .head_area {
-      text-align: center;
-      margin-bottom: 40px;
+  .contact_header {
+    text-align: center;
+    margin-bottom: 40px;
 
-      h2 {
-        font-size: 32px;
-        font-weight: 700;
-        color: #222;
-        margin-bottom: 10px;
-      }
+    h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #7a0f2a;
+      margin-bottom: 10px;
+    }
 
-      p {
-        font-size: 16px;
-        color: #555;
+    p {
+      font-size: 16px;
+      color: #666;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+
+  .form_card {
+    max-width: 700px;
+    margin: auto;
+    background: #fff;
+    padding: 35px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    input,
+    textarea {
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      font-size: 14px;
+      transition: 0.3s;
+
+      &:focus {
+        border-color: #7a0f2a;
+        box-shadow: 0 0 0 0.1rem rgba(122, 15, 42, 0.2);
       }
     }
 
-    .form_area {
-      display: flex;
-      justify-content: center;
+    .submit_btn {
+      background: variable.$primary_color;
+      color: #fff;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      margin-top: 10px;
+      transition: 0.3s;
 
-      .form_content {
-        background: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-
-        .form {
-          margin-bottom: 20px;
-
-          label {
-            display: block;
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 6px;
-            color: #333;
-          }
-
-          input,
-          textarea {
-            width: 100%;
-            border: 1px solid #ddd;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            outline: none;
-            transition: 0.3s ease;
-
-            &:focus {
-              border-color: #a740a8;
-              box-shadow: 0 0 5px rgba(196, 77, 219, 0.3);
-            }
-          }
-
-          textarea {
-            resize: none;
-          }
-        }
-
-        button {
-          width: 100%;
-          display: inline-block;
-          background: variable.$primary_color;
-          color: #fff;
-          padding: 12px 0;
-          border-radius: 6px;
-          font-size: 16px;
-          font-weight: 600;
-          border: none;
-          cursor: pointer;
-          transition: 0.3s ease;
-
-          &:hover {
-            background: #8f406a;
-          }
-        }
+      &:hover {
+        background: #5a2542;
       }
     }
   }

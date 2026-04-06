@@ -17,7 +17,7 @@ import classical from "../../../public/images/classical.jpg";
 export default function Cultural() {
     return (
         <>
-            <div className="outer_area">
+            <div className="cultural_outer">
                 <div className="banner_area">
                     <div className="banner_content">
                         <h2>Immerse Yourself in India's Rich Culture & Heritage</h2>

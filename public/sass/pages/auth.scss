@@ -1,0 +1,112 @@
+@use "../helper/variable.scss" as variable;
+
+.auth {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("/images/bg.jpg") no-repeat center/cover;
+  position: relative;
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6px);
+  }
+
+  &__card {                                                               
+    position: relative;                                                           
+    z-index: 2;
+    width: 360px;
+    padding: 40px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+
+    h2 {
+      margin-bottom: 25px;
+      color: #5a0f2e;
+      font-weight: 600;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .input-group {
+      position: relative;
+
+      input {
+        width: 100%;
+        padding: 12px 40px; 
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+
+        &:focus {
+          outline: none;
+          border-color: #5a0f2e;
+          box-shadow: 0 0 5px rgba(90, 15, 46, 0.2);
+        }
+      }
+
+      .input-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #777;
+      }
+
+      .eye-icon {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #777;
+
+        &:hover {
+          color: #5a0f2e;
+        }
+      }
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background: #5a0f2e;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        background: #7a1c44;
+        transform: translateY(-1px);
+      }
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+      cursor: pointer;
+
+      span {
+        color: #5a0f2e;
+        font-weight: bold;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
