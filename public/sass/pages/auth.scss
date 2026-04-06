@@ -1,4 +1,5 @@
 @use "../helper/variable.scss" as variable;
+@use "../responsive";
 
 .auth {
   min-height: 100vh;

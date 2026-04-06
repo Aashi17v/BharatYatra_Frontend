@@ -1,5 +1,5 @@
 @use "../helper/variable.scss" as variable;
-@import "../responsive";
+@use "../responsive";
 
 .outer {
     background-color: variable.$primary_color;
