@@ -1,4 +1,4 @@
-# 🌍 Tour & Travel Website
+# 🌍 Bharat Yatra - Travel Website
 
 A modern and responsive travel website built using Next.js.
 This project showcases popular destinations with an interactive UI and smooth navigation experience.
