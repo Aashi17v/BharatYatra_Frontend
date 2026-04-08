@@ -1,5 +1,5 @@
 @use "../responsive";
-@import "../helper/variable.scss";
+@use "../helper/variable" as variable;
 
 .main_container {
   background: #5a0f2e;
