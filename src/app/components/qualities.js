@@ -7,7 +7,7 @@ export default function Qualities() {
     return (
         <>
             <div className="head_area">
-                <h2>Why Choose Incredible India Tours?</h2>
+                <h2>Why Choose BharatYatra?</h2>
                 <div className="content_area">
                     <Container>
                         <Row>
